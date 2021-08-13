@@ -1,0 +1,347 @@
+<div class="panel-header panel-header-sm">
+</div>
+<div class="main-content">
+  <div class="row">
+
+    <div *ngIf="!isPrintShow" class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title"> <b>Payment List</b></h4>
+          <!-- <input type="button" [routerLink]="['/Logistic/ShiperForm']" class="form-control" style="width: 15%; cursor: pointer; background-color: #1d1c56; color: white"
+            placeholder="Company" value="Add New Shiper"> -->
+
+        </div>
+        <div class="card-body">
+          <div *ngIf="manageList.length != 0" class="table-responsive">
+            <table class="table">
+              <thead class="text-primary">
+                <th style="color: #1d1c56">
+                  City
+                </th>
+                <th style="color: #1d1c56">
+                  Date
+                </th>
+                <th style="color: #1d1c56">
+                  Cheque #
+                </th>
+                <th style="color: #1d1c56">
+                  Client Name
+                </th>
+                <th style="color: #1d1c56">
+                  Payer Name
+                </th>
+                <th style="color: #1d1c56">
+                  Amount
+                </th>
+                <th style="color: #1d1c56">
+                  Bank
+                </th>
+                <th style="color: #1d1c56">
+                  Payment Method
+                </th>
+                <th>
+                  Status
+                </th>
+                <th>
+                </th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let loop of manageList">
+                  <td>
+                    {{loop.City}}
+                  </td>
+                  <td>
+                    {{loop.Date}}
+                  </td>
+                  <td>
+                    {{loop.cheque}}
+                  </td>
+                  <td>
+                    {{loop.ClientName}}
+                  </td>
+                  <td>
+                    {{loop.PayerName}}
+                  </td>
+                  <td>
+                    {{loop.Amount}}
+                  </td>
+                  <td>
+                    {{loop.Bank}}
+                  </td>
+                  <td>
+                    {{loop.PaymentMethod}}
+                  </td>
+                  <td *ngIf="loop.status == ''">
+                    Un Clear
+                  </td>
+                  <td *ngIf="loop.status != ''">
+                    {{loop.status}}
+                  </td>
+                  <td (click)="printSummary(loop)">
+                    <img src="https://i.ya-webdesign.com/images/using-png-files-for-print-5.png" width="20px">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <img *ngIf="manageList.length == 0"
+            src="https://firebasestorage.googleapis.com/v0/b/logisticmanagement.appspot.com/o/photos%2Femptydata12345.png?alt=media&token=3eefbebb-dbe2-42b3-b5d0-f6042f0392d1"
+            width="100%" />
+        </div>
+
+      </div>
+    </div>
+
+
+    <div *ngIf="isPrintShow" id='printSummaryPopUp' class="col-md-12">
+
+      <div class="card">
+        <!-- <div class="card-header">
+          <h4 style="text-align: center;" class="card-title"> <b>Payment Summary</b></h4>
+          <hr>
+        </div> -->
+        <div class="card-body" style="padding : 5%">
+
+
+
+
+          <div class="row">
+            <div class="col-md-3">
+              <img style="margin-top: -5%;"
+                src="https://firebasestorage.googleapis.com/v0/b/alertlogistics-192c0.appspot.com/o/logo%20falsh.png?alt=media&token=7c69d0ca-fc8d-4b67-809d-53e7310848b7"
+                width="50%" />
+            </div>
+
+            <div class="col-md-4">
+
+            </div>
+            <div class="col-md-5">
+
+              <div class="row">
+
+                <div style="text-align: left;" class="col-md-5">
+                  <h5>Printed Date : </h5>
+                  <h5>Payment Date : </h5>
+                  <h5>Payment Status : </h5>
+                </div>
+                <div class="col-md-1"></div>
+
+
+                <div style="text-align: right;" class="col-md-6">
+                  <h5>{{getcurrentDateTime()}}</h5>
+                  <h5>{{this.PaymentInfo.Date}}</h5> <!-- <h5>{{PaymentInfo?.Date}}</h5> -->
+                  <h5 *ngIf="this.PaymentInfo.status == ''">Processing</h5>
+                  <h5 *ngIf="this.PaymentInfo.status != ''">{{this.PaymentInfo.status}}</h5>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+
+          <br>
+          <br>
+
+          <div class="row">
+
+            <table width="100%" border="1">
+              <tbody>
+                <tr>
+                  <th style="width: 50%; background-color: rgb(212, 217, 226 , 0.5);">
+                    &nbsp;&nbsp;&nbsp;TO
+                  </th>
+                  <th style="width: 50%; background-color: rgb(212, 217, 226 , 0.5)">
+                    &nbsp;&nbsp;&nbsp;CHEQUE INFORMATION
+                  </th>
+                </tr>
+
+                <tr>
+                  <td>
+                    <div class="row">
+                      <div class="col-md-1"></div>
+                      <div class="col-md-11">
+                        <br><br><br><br>
+
+                        <h2> <b>COMAPNY NAME&nbsp;&nbsp;:</b><br> {{this.printShiperInfo.BusinessName}}</h2>
+                        <br>
+
+                        <h2>
+                          <b>PHONE&nbsp;&nbsp;
+                            :</b><br>{{this.printShiperInfo.CompanyPhone}} </h2>
+                        <br>
+
+                        <h2>
+                          <b>EMAIL&nbsp;&nbsp;:</b><br>
+                          {{this.printShiperInfo.CompanyEmail}}</h2>
+                        <br>
+
+                        <h2>
+                          <b>ADDRESS&nbsp;&nbsp;</b><br>
+                          {{this.printShiperInfo.BillingAddress}}</h2>
+                        <br>
+                      </div>
+
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <div class="col-md-1"></div>
+                      <div class="col-md-11">
+                        <br><br><br><br>
+                        <h2><b>BANK NAME&nbsp;&nbsp;&nbsp;</b><br>{{this.PaymentInfo.Bank}}</h2>
+                        <br>
+
+                        <h2><b>CHEQUE # &nbsp;&nbsp;:</b><br>{{this.PaymentInfo.cheque}}</h2>
+                        <br>
+
+                        <h2><b>PAYEE NAME : </b><br>{{this.PaymentInfo.PayerName}}</h2>
+                        <br>
+
+                        <h2><b>AMOUNT&nbsp;&nbsp;:</b><br>{{this.PaymentInfo.Amount}} Rs</h2>
+                        <br>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+
+
+              </tbody>
+            </table>
+
+          </div>
+
+          <br>
+          <br>
+
+          <div class="row">
+            <div class="col-md-12">
+              <table width="100%" border="1">
+                <tbody>
+                  <tr style="background-color: rgb(212, 217, 226 , 0.5);">
+                    <th>
+                      &nbsp;&nbsp;SR #
+                    </th>
+                    <th>
+                      &nbsp;&nbsp;CN #
+                    </th>
+                    <th>
+                      &nbsp;&nbsp;Booking Date
+                    </th>
+                    <th>
+                      &nbsp;&nbsp;Designation
+                    </th>
+                    <th>
+                      &nbsp;&nbsp;Zone
+                    </th>
+                    <th>
+                      &nbsp;&nbsp;Weight
+                    </th>
+                    <th style="width : 20%">
+                      &nbsp;&nbsp;Consigment Amount
+                    </th>
+                  </tr>
+
+                  <tr style="margin-left: 20px;" *ngFor="let loop of bookingList; let Sno = index">
+                    <td style="padding-left : 10px">
+                      {{Sno}}
+                    </td>
+                    <td style="padding-left : 10px">
+                      {{loop.BookingID}}
+                    </td>
+                    <td style="padding-left : 10px">
+                      {{loop.BookedDate.split(" ")[0]}}
+                    </td>
+                    <td style="padding-left : 10px">
+                      {{loop.DestinationCity}}
+                    </td>
+                    <td *ngIf="loop.DestinationCity == 'Karachi'" style="padding-left : 10px">
+                      Local
+                    </td>
+                    <td *ngIf="loop.DestinationCity != 'Karachi'" style="padding-left : 10px">
+                      Other city
+                    </td>
+                    <td style="padding-left : 10px">
+                      {{loop.Weight}} Kg
+                    </td>
+                    <td style="width : 20%; padding-left: 10px;">
+                      {{loop.Amount}} Rs
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+              <table width="100%" border="1">
+                <tr style="margin-left: 20px;">
+                  <td style="padding-right : 15px; width: 80%; text-align: right;">
+                    Grand Total
+                  </td>
+                  <td style="width : 20%; padding-left: 10px; ">
+                    {{PrintGrandTotal}} Rs
+                  </td>
+                </tr>
+
+              </table>
+            </div>
+          </div>
+
+          <br>
+          <br>
+          <br>
+
+          <div class="row">
+
+
+            <div class="col-md-7"></div>
+
+
+            <div class="col-md-5">
+
+              <h1 style="font-size: 25px; text-align: center;"><u><i><b>Payment Details</b></i></u></h1>
+
+              <div class="row">
+                <div class="col-md-8">
+                  <b>
+                    <h4>Cng.. Amount</h4>
+                  </b>
+
+                  <b>
+                    <h4>Amount Cash Back</h4>
+                  </b>
+                  <b>
+                    <h4>Amount Discount</h4>
+                  </b>
+                  <b>
+                    <br>
+                    <h4 style="margin-top : 0">Total Amount</h4>
+                  </b>
+                  <b>
+                    <br>
+                    <h4>Amount Payable</h4>
+                  </b>
+                </div>
+                <div class="col-md-4">
+                  <h4>{{PrintGrandTotal}}.00 Rs</h4>
+                  <h4>0.00 Rs</h4>
+                  <h4>0.00 Rs</h4>
+                  <hr>
+                  <h4>{{PrintGrandTotal}}.00 Rs</h4>
+                  <hr>
+                  <h4>{{PrintGrandTotal}}.00 Rs</h4>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <hr>
+
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+</div>

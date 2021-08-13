@@ -1,0 +1,31 @@
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+    <h2 class="active"> {{ languageData == 0 ? "Sign In" : "Zaloguj się" }}</h2>
+    <!-- <h2 class="inactive underlineHover">Sign Up </h2> -->
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img
+        src="https://firebasestorage.googleapis.com/v0/b/kaaflogistics.appspot.com/o/Login.png?alt=media&token=99c6485b-9c3a-4966-a5f9-752ed3d84c1f"
+        id="icon" alt="User Icon" />
+    </div>
+
+    <!-- Login Form -->
+    <form>
+      <input (input)="UserName = $event.target.value" [value]="UserName" type="text" id="login" class="fadeIn second"
+        name="login" placeholder="login">
+      <input (input)="Password = $event.target.value" [value]="Password" type="password" id="password"
+        class="fadeIn third" name="login" placeholder="password">
+      <input type="submit" style="background-color: #1d1c56;" (click)="GoToDashBoard()" class="fadeIn fourth"
+        value="{{ languageData == 0 ? 'Log In' : 'Zaloguj sie' }}">
+      <!-- <input type="submit" [routerLink]="['/Logistic/dashboard']" class="fadeIn fourth" value="Log In"> -->
+    </form>
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      <!-- <a class="underlineHover" href="#">Forgot Password?</a> -->
+    </div>
+
+  </div>
+</div>

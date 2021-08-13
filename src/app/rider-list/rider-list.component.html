@@ -1,0 +1,64 @@
+<div class="panel-header panel-header-sm">
+</div>
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title"> <b>Rider List</b></h4>
+          <input type="button" [routerLink]="['/Logistic/RiderForm']" class="form-control"
+            style="width: 15%; cursor: pointer; background-color: #1d1c56; color: white" placeholder="Company"
+            value="Add New Rider">
+
+        </div>
+
+
+
+        <div class="card-body">
+
+          <!-- if riderList length is not ZERO -->
+          <div *ngIf="riderList.length != 0" class="table-responsive">
+            <table class="table">
+              <thead class="text-primary">
+                <th style="color: #1d1c56">
+                  Rider Name
+                </th>
+                <th style="color: #1d1c56">
+                  Mobile1
+                </th>
+                <th style="color: #1d1c56">
+                  Location
+                </th>
+                <th></th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let loop of riderList">
+                  <td>
+                    {{loop.RiderName}}
+                  </td>
+                  <td>
+                    {{loop.Mobile1}}
+                  </td>
+                  <td>
+                    {{loop.Location}}
+                  </td>
+                  <td>
+                    <input type="button" (click)="Editmove(loop)" [routerLink]="['/Logistic/RiderForm']"
+                      class="form-control" style="width: 80%; cursor: pointer; background-color: #1d1c56; color: white"
+                      placeholder="Company" value="Edit Rider">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <img *ngIf="riderList.length == 0"
+            src="https://firebasestorage.googleapis.com/v0/b/logisticmanagement.appspot.com/o/photos%2Femptydata12345.png?alt=media&token=3eefbebb-dbe2-42b3-b5d0-f6042f0392d1"
+            width="100%" />
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

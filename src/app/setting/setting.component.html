@@ -1,0 +1,84 @@
+<div class="panel-header panel-header-sm">
+</div>
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-0">
+      <!-- <div class="card">
+        <div class="card-header">
+          <h5 class="title">Add City</h5>
+        </div>
+        <div class="card-body">
+          <form>
+            <div class="row">
+              <div class="col-md-5 pr-1">
+                <div class="form-group">
+                  <label>City ID</label>
+                  <input type="text" class="form-control" disabled="" placeholder="Company" [value]="cityInfo.cityId">
+                </div>
+              </div>
+              <div class="col-md-3 px-1">
+                <div class="form-group">
+                  <label>City Name</label>
+                  <input type="text" class="form-control" [value]="cityInfo.cityName"
+                    (input)="cityInfo.cityName = $event.target.value" placeholder="karachi">
+                </div>
+              </div>
+              <div class="col-md-4 pl-1">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">City Charges</label>
+                  <input type="number" [value]="cityInfo.cityCharges"
+                    (input)="cityInfo.cityCharges = $event.target.value" class="form-control" placeholder="charges">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-10 pr-1"></div>
+              <div class="col-md-2 pr-1">
+                <input type="button" (click)="BtnSaveData(cityInfo)" class="form-control"
+                  style="cursor: pointer; background-color: #1d1c56; color: white" placeholder="Company"
+                  value="Save City">
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div> -->
+    </div>
+    <div class="col-md-4">
+      <div style="padding-left: 5%; padding-top: 5%;" class="card card-user">
+        <table class="table">
+          <thead class="text-primary">
+            <th style="color: #1d1c56">
+              City Name
+            </th>
+            <!-- <th style="color: #1d1c56">
+              Charges
+            </th> -->
+            <th style="color: #1d1c56">
+              Zone
+            </th>
+            <th></th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let loop of cityList">
+              <td>
+                {{loop.cityName}}
+              </td>
+              <!-- <td>
+                {{loop.cityCharges}}
+              </td> -->
+              <td>
+                {{loop.Zone}}
+              </td>
+              <!-- <td>
+                <input type="button" (click)="Editmove(loop)" class="form-control"
+                  style="width: 80%; cursor: pointer; background-color: #1d1c56; color: white" placeholder="Company"
+                  value="Edit">
+              </td> -->
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

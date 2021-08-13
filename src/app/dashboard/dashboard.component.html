@@ -1,0 +1,262 @@
+<!-- <div class="panel-header-lg"> -->
+
+<!-- <img
+    src="https://www.designhill.com/design-blog/wp-content/uploads/2019/05/25-Top-Supply-Chain-And-Logistics-Logo-Ideas.jpg"
+    width="100%" /> -->
+<!-- <canvas baseChart id="bigDashboardChart" [datasets]="lineBigDashboardChartData" [labels]="lineBigDashboardChartLabels"
+    [colors]="lineBigDashboardChartColors" [options]="lineBigDashboardChartOptions"
+    [chartType]="lineBigDashboardChartType" (chartHover)="chartHovered($event)"
+    (chartClick)="chartClicked($event)"></canvas> -->
+<!-- </div> -->
+
+<div class="main-content">
+  <div class="row mt">
+
+    <div class="col-lg-8 col-md-8" style="height: 570px;">
+      <div class="card card-chart">
+        <div class="card-header">
+          <h4 class="card-title">{{ languageData == 0 ? "Booked Order Amounts" : "Zarezerwowane kwoty zamówienia" }}
+            {{filterName}}</h4>
+          <div ngbDropdown>
+            <button type="button" class="btn btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret"
+              ngbDropdownToggle>
+              <i class="now-ui-icons arrows-1_minimal-down"></i>
+            </button>
+            <div ngbDropdownMenu class="dropdown-menu-right">
+              <a class="dropdown-item" (click)="test(1)">{{ languageData == 0 ? "Monthly" : "Miesięczny" }}</a>
+              <a class="dropdown-item" (click)="test(2)">{{ languageData == 0 ? "Weekly" : "Tygodniowo" }}</a>
+              <a class="dropdown-item" (click)="test(3)">{{ languageData == 0 ? "Daily" : "Codziennie" }}</a>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="chart-area">
+            <div id="LinechartContainer" style="height: 370px; width: 100%;"></div>
+            <!-- <canvas baseChart id="lineChartExample" [datasets]="lineChartData" [labels]="lineChartLabels"
+              [colors]="lineChartColors" [options]="lineChartOptions" [chartType]="lineChartType"
+              (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6">
+
+      <div style="height: 170px;" class="card">
+        <div class="card-header">
+          <h5 class="card-category"></h5>
+          <h4 style="margin-top: 8%;" class="card-title">{{ languageData == 0 ? "Total Number of Booked Order" :
+            "Całkowita liczba zarezerwowanych zamówień" }}</h4>
+        </div>
+        <div style="margin-top: -5%;" class="card-body">
+          <h5 class="card-category">( {{orderData.orderNumber}} ) {{ languageData == 0 ? "number of orders status is
+            Booked" : "liczba zamówień ma status Zarezerwowane" }}
+          </h5>
+        </div>
+      </div>
+
+      <div style="height: 170px;" class="card">
+        <div class="card-header">
+          <h5 class="card-category"></h5>
+          <h4 style="margin-top: 8%;" class="card-title">{{ languageData == 0 ? "Total Number of Arrived Order" :
+            "Całkowita liczba otrzymanych zamówień" }}</h4>
+        </div>
+        <div style="margin-top: -5%;" class="card-body">
+          <h5 class="card-category">( {{orderData.arrivedOrder}} ) {{ languageData == 0 ? "number of orders status is
+            arrived" : "otrzymano status liczby zamówień" }}</h5>
+        </div>
+      </div>
+
+      <div style="height: 170px;" class="card">
+        <div class="card-header">
+          <h5 class="card-category"></h5>
+          <h4 style="margin-top: 8%;" class="card-title">{{ languageData == 0 ? "Total Number of Dispatch Order" :
+            "Całkowita liczba zleceń wysyłki" }}</h4>
+        </div>
+        <div style="margin-top: -5%;" class="card-body">
+          <h5 class="card-category">( {{orderData.dispatedOrder}} ) {{ languageData == 0 ? "number of orders status is
+            dispatched" : "liczba wysłanych zamówień" }}</h5>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="col-lg-4 col-md-6">
+
+      <!-- <div style="height: 170px;" class="card">
+        <div class="card-header">
+          <h5 class="card-category"></h5>
+          <h4 style="margin-top: 8%;" class="card-title">Total Number of Delivered Order</h4>
+        </div>
+        <div style="margin-top: -5%;" class="card-body">
+          <h5 class="card-category">( {{orderData.deliverdOrder}} ) number of orders status is delivered</h5>
+        </div>
+      </div> -->
+
+    </div>
+
+
+  </div>
+
+
+  <div class="row">
+    <div class="col-lg-4 col-md-4">
+      <div id="chartContainer" style="height: 400px; width: 100%; margin-left:auto;margin-right:auto;"></div>
+    </div>
+    <div class="col-lg-4 col-md-4">
+      <div id="chartContainer2" style="height: 400px; width: 100%; margin-left:auto;margin-right:auto;"></div>
+    </div>
+    <div class="col-lg-4 col-md-4">
+      <div id="chartContainer3" style="height: 400px; width: 100%; margin-left:auto;margin-right:auto;"></div>
+    </div>
+  </div>
+
+
+  <div *ngIf="bookingList.length > 0" class="row">
+    <div class="col-md-12">
+      <div class="card" style="height: 100%; margin-top: 2%;">
+        <div class="card-header">
+          <!-- <h5 class="card-category">All Persons List</h5> -->
+          <h4 class="card-title">{{languageData == 0 ? "Latest Booking List" : "Najnowsza lista rezerwacji"}}</h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class=" text-primary">
+                <th style="color: #1d1c56;">
+                  {{ languageData == 0 ? "Booked ID" : "zarezerwowany identyfikator" }}
+                </th>
+                <th style="text-align: center; color: #1d1c56;">
+                  {{ languageData == 0 ? "Consignee Name" : "Nazwa odbiorcy" }}
+                </th>
+                <th style="text-align: center; color: #1d1c56;">
+                  {{ languageData == 0 ? "Consignee Contact" : "Kontakt z odbiorcą" }}
+                </th>
+                <th style="color: #1d1c56;" class="text-right">
+                  {{ languageData == 0 ? "Amount" : "Ilość" }}
+                </th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let loop of bookingList">
+                  <td>
+                    {{loop.BookingID}}
+                  </td>
+                  <td style="text-align: center;">
+                    {{loop.ConsigneeName}}
+                  </td>
+                  <td style="text-align: center;">
+                    {{loop.ConsigneeContact}}
+                  </td>
+                  <td class="text-right">
+                    {{loop.Amount}}.Rs
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title"> Employees List</h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class=" text-primary">
+                <th>
+                  Name
+                </th>
+                <th>
+                  Country
+                </th>
+                <th>
+                  City
+                </th>
+                <th class="text-right">
+                  Salary
+                </th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    Dakota Rice
+                  </td>
+                  <td>
+                    Niger
+                  </td>
+                  <td>
+                    Oud-Turnhout
+                  </td>
+                  <td class="text-right">
+                    $36,738
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Minerva Hooper
+                  </td>
+                  <td>
+                    Curaçao
+                  </td>
+                  <td>
+                    Sinaai-Waas
+                  </td>
+                  <td class="text-right">
+                    $23,789
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Sage Rodriguez
+                  </td>
+                  <td>
+                    Netherlands
+                  </td>
+                  <td>
+                    Baileux
+                  </td>
+                  <td class="text-right">
+                    $56,142
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Doris Greene
+                  </td>
+                  <td>
+                    Malawi
+                  </td>
+                  <td>
+                    Feldkirchen in Kärnten
+                  </td>
+                  <td class="text-right">
+                    $63,542
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Mason Porter
+                  </td>
+                  <td>
+                    Chile
+                  </td>
+                  <td>
+                    Gloucester
+                  </td>
+                  <td class="text-right">
+                    $78,615
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </div>
+</div>

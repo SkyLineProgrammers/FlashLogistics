@@ -1,0 +1,145 @@
+<div class="panel-header panel-header-sm">
+</div>
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+
+
+          <div class="row">
+            <div class="col-md-9 pr-1">
+              <h5 class="title">User Form</h5>
+            </div>
+            <div class="col-md-2 pr-1">
+              <input type="button" (click)="BtnSaveData(UserInfo)" class="form-control"
+                style="cursor: pointer; background-color: #1d1c56; color: white" placeholder="Company"
+                [value]="UserStatus">
+            </div>
+          </div>
+
+        </div>
+        <div class="card-body" style="clear: both">
+          <form>
+            <div class="row">
+              <div class="col-md-5 pr-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Name*: </label>
+                  <input type="text" class="form-control" [value]="UserInfo.Name"
+                    (input)="UserInfo.Name = $event.target.value">
+                </div>
+              </div>
+              <div class="col-md-3 px-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Father Name*:</label>
+                  <input type="text" (input)="UserInfo.FatherName = $event.target.value" [value]="UserInfo.FatherName"
+                    class="form-control">
+                </div>
+              </div>
+              <div class="col-md-4 pl-1">
+                <div class="form-group">
+                  <label for="exampleInputEmail1" class="BoldLabel">CNIC Number*:</label>
+                  <input type="number" class="form-control" (input)="UserInfo.CNICNumber = $event.target.value"
+                    [value]="UserInfo.CNICNumber">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 pr-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Contact Number 1: </label>
+                  <input type="number" class="form-control" (input)="UserInfo.Mobile1 = $event.target.value"
+                    [value]="UserInfo.Mobile1">
+                </div>
+              </div>
+              <div class="col-md-4 pl-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Contact Number 2</label>
+                  <input type="number" class="form-control" (input)="UserInfo.Mobile2 = $event.target.value"
+                    [value]="UserInfo.Mobile2">
+                </div>
+              </div>
+              <div class="col-md-4 pl-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Contact Number 3:</label>
+                  <input type="number" class="form-control" (input)="UserInfo.Mobile3 = $event.target.value"
+                    [value]="UserInfo.Mobile3">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+
+              <div class="col-md-8">
+                <div class="form-group">
+                  <label class="BoldLabel">Adress:</label>
+                  <input type="text" class="form-control" (input)="UserInfo.Location = $event.target.value"
+                    [value]="UserInfo.Location">
+                </div>
+              </div>
+
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="BoldLabel"> Privileges / Roles </label>
+                  <!-- <select>
+                                                <option> Add Shiper </option>
+                                                <option> View Shiper </option>
+                                                <option> Add Rider </option>
+                                                <option> View Rider </option>
+                                                <option> Add User </option>
+                                                <option> View User </option>
+                                                <option> Add Booking </option>
+                                                <option> View Booking </option>
+                                                <option> Add Manage Cheque </option>                    
+                                                <option> View Manage Cheque </option>
+                                                <option> Add Workout </option>
+                                                <option> Add Tracking </option>
+                                                
+                                              </select> -->
+                  <!-- <form [formGroup]="myForm"> -->
+                  <ng-multiselect-dropdown name="sa" [data]="dropdownList" [(ngModel)]="selectedItems"
+                    [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+                  </ng-multiselect-dropdown>
+                  <!-- </form> -->
+                </div>
+              </div>
+
+
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="BoldLabel">DOB</label>
+                  <input type="date" class="form-control" (input)="UserInfo.DOB = $event.target.value"
+                    [value]="UserInfo.DOB">
+                </div>
+              </div>
+              <div class="col-md-4 pr-1">
+                <div class="form-group">
+                  <label class="BoldLabel">UserName:</label>
+                  <input *ngIf="this.UserKey == ''" type="text" class="form-control"
+                    (input)="UserInfo.UserName = $event.target.value" [value]="UserInfo.UserName">
+                  <input *ngIf="this.UserKey != ''" disabled type="text" class="form-control"
+                    (input)="UserInfo.UserName = $event.target.value" [value]="UserInfo.UserName">
+                </div>
+              </div>
+              <div class="col-md-4 pr-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Password:</label>
+                  <input *ngIf="this.UserKey == ''" type="text" class="form-control"
+                    (input)="UserInfo.Password = $event.target.value" [value]="UserInfo.Password">
+                  <input *ngIf="this.UserKey != ''" disabled type="text" class="form-control"
+                    (input)="UserInfo.Password = $event.target.value" [value]="UserInfo.Password">
+                </div>
+              </div>
+
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

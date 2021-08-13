@@ -1,0 +1,69 @@
+<nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute bg-primary fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-wrapper">
+      <div class="navbar-toggle">
+        <button style="color: #1c1b55;" type="button" class="navbar-toggler" (click)="sidebarToggle()">
+          <span style="color: #1c1b55;" class="navbar-toggler-bar bar1"></span>
+          <span style="color: #1c1b55;" class="navbar-toggler-bar bar2"></span>
+          <span style="color: #1c1b55;" class="navbar-toggler-bar bar3"></span>
+        </button>
+      </div>
+      <a style="color: #1c1b55;" class="navbar-brand" [routerLink]="['/Logistic/dashboard']">{{getTitle()}}</a>
+    </div>
+    <!-- <button class="navbar-toggler" type="button" (click)="collapse()" [attr.aria-expanded]="!isCollapsed"
+      aria-controls="collapseExample">
+      <span class="navbar-toggler-bar navbar-kebab"></span>
+      <span class="navbar-toggler-bar navbar-kebab"></span>
+      <span class="navbar-toggler-bar navbar-kebab"></span>
+    </button> -->
+    <div class="collapse navbar-collapse justify-content-end" id="collapseExample">
+      <!-- <form>
+        <div class="input-group no-border">
+          <input type="text" value="" class="form-control" placeholder="Search...">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <i class="now-ui-icons ui-1_zoom-bold"></i>
+            </div>
+          </div>
+        </div>
+      </form> -->
+      <ul class="navbar-nav">
+        <!-- <li class="nav-item">
+          <a class="nav-link" href="#pablo">
+            <i class="now-ui-icons media-2_sound-wave"></i>
+            <p>
+              <span class="d-lg-none d-md-block">Stats</span>
+            </p>
+          </a>
+        </li> -->
+        <!-- <li class="nav-item" ngbDropdown>
+          <a class="nav-link" id="dropdownBasic1" ngbDropdownToggle>
+            <i class="now-ui-icons location_world"></i>
+            <p>
+              <span class="d-lg-none d-md-block">Some Actions</span>
+            </p>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </li> -->
+        <li class="nav-item">
+          <a (click)="logOut()" style="    color: white; cursor: pointer;
+    background: #1c1b55;
+    border-radius: 5px;" class="nav-link">
+            LOGOUT <i style="    color: white; cursor: pointer;
+    background: #1c1b55;
+    border-radius: 5px;" class="now-ui-icons media-1_button-power"></i>
+            <p>
+              <span style="    color: white; cursor: pointer;
+    background: #1c1b55;
+    border-radius: 5px;" class="d-lg-none d-md-block">Account</span>
+            </p>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

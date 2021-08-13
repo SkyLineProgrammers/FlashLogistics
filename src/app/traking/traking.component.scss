@@ -1,0 +1,10 @@
+table .form-check label .form-check-sign::before,
+.table .form-check label .form-check-sign::after {
+  top: 0px;
+  left: 4px;
+}
+
+.form-group .form-control,
+.input-group .form-control {
+  padding: 0px;
+}

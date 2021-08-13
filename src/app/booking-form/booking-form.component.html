@@ -1,0 +1,177 @@
+<div class="panel-header panel-header-sm">
+</div>
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+
+
+          <div class="row">
+            <div class="col-md-7 pr-1">
+              <h5 class="title">Booking Form <br><span style="color: grey">Shipper ID ({{BookingInfo.ShiperID}})</span>
+              </h5>
+            </div>
+            <div class="col-md-2 pr-1">
+              <input type="button" (click)="BtnSaveData(BookingInfo)" class="form-control"
+                style="cursor: pointer; height: 40px; background-color: #1d1c56; color: white; margin-top: 5%;"
+                placeholder="Company" [value]="BookingBtn">
+            </div>
+            <div class="col-md-2 pr-1">
+              <div class="form-group">
+                <input type="file" id="upload" #upload style="display: none" (change)="incomingfile($event)"
+                  placeholder="Upload file" accept=".xlsx">
+                <button mat-raised-button type="submit"
+                  style="cursor: pointer; background-color: #1d1c56; color: white; width: 100% ; border-radius: 40px;"
+                  (click)="upload.click()" class="btn btn-danger pull-right">Import Booking</button>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <div class="card-body" style="clear: both">
+          <form>
+            <div class="row">
+              <div class="col-md-4 pr-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Origin *:</label>
+                  <select class="form-control">
+                    <option selected="selected" disabled>Karachi</option>
+                    <!-- <option *ngFor="let emp of empInfo" [value]="emp.StatusName">{{emp.StatusName}}</option> -->
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-4 pr-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Destination Country *:</label>
+                  <select class="form-control">
+                    <option selected="selected" disabled>Pakistan</option>
+                    <!-- <option *ngFor="let emp of empInfo" [value]="emp.StatusName">{{emp.StatusName}}</option> -->
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-4 pr-1">
+
+                <div *ngIf="this.BookingBtn == 'update Booking'" class="form-group">
+                  <label class="BoldLabel">Designation city</label>
+                  <input disabled="" type="text" class="form-control" [value]="BookingInfo.DestinationCity">
+                </div>
+
+
+                <div *ngIf="this.BookingBtn !== 'update Booking'" class="form-group">
+                  <label class="BoldLabel">Destination City *:</label>
+                  <select (change)="selectionComboCity($event)" class="form-control">
+                    <!-- <option selected="selected" disabled>Karachi</option> -->
+                    <option *ngFor="let loop of cityList" [value]="loop.cityName">
+                      {{loop.cityName}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 pr-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Consignee Name *: </label>
+                  <input type="text" class="form-control" (input)="BookingInfo.ConsigneeName = $event.target.value"
+                    [value]="BookingInfo.ConsigneeName">
+                </div>
+              </div>
+              <div class="col-md-4 pl-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Consignee Contact *:</label>
+                  <input type="number" class="form-control" (input)="BookingInfo.ConsigneeContact = $event.target.value"
+                    [value]="BookingInfo.ConsigneeContact">
+                </div>
+              </div>
+              <div class="col-md-4 pl-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Consignee Email</label>
+                  <input type="text" class="form-control" (input)="BookingInfo.ConsigneeEmail = $event.target.value"
+                    [value]="BookingInfo.ConsigneeEmail">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="BoldLabel">Consignee Adress *:</label>
+                  <input type="text" class="form-control" (input)="BookingInfo.ConsigneeAdress = $event.target.value"
+                    [value]="BookingInfo.ConsigneeAdress">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="BoldLabel">Pieces :</label>
+                  <input type="number" class="form-control" (input)="BookingInfo.Pieces = $event.target.value"
+                    [value]="BookingInfo.Pieces">
+                </div>
+              </div>
+              <div class="col-md-4 pr-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Weight *:</label>
+                  <input type="number" class="form-control" (input)="BookingInfo.Weight = $event.target.value"
+                    [value]="BookingInfo.Weight">
+                </div>
+              </div>
+              <div class="col-md-4 pr-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Customer Ref *:</label>
+                  <input type="text" class="form-control" (input)="BookingInfo.CustomerRef = $event.target.value"
+                    [value]="BookingInfo.CustomerRef">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="BoldLabel">Collection Amount in Rs *:</label>
+                  <input type="number" class="form-control" (input)="BookingInfo.Amount = $event.target.value"
+                    [value]="BookingInfo.Amount">
+                </div>
+              </div>
+              <div class="col-md-4 pr-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Product Detail :</label>
+                  <input type="text" class="form-control" (input)="BookingInfo.ProductDetail = $event.target.value"
+                    [value]="BookingInfo.ProductDetail">
+                </div>
+              </div>
+              <div class="col-md-4 pr-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Fragile *:</label>
+                  <select (change)="statusSelected($event)" class="form-control">
+                    <option *ngIf="this.BookingInfo.Fragile == 'No'" selected="selected" value="No">No</option>
+                    <option *ngIf="this.BookingInfo.Fragile == 'No'" value="Yes">Yes</option>
+                    <option *ngIf="this.BookingInfo.Fragile == 'Yes'" selected="selected" value="Yes">Yes</option>
+                    <option *ngIf="this.BookingInfo.Fragile == 'Yes'" value="No">No</option>
+                    <!-- 
+                    <!-- <option [selected]="selected" *ngFor="let emp of empInfo" [value]="emp.StatusName"> -->
+                    <!-- {{emp.StatusName}}</option> -->
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="BoldLabel">Remarks:</label>
+                  <input type="text" class="form-control" (input)="BookingInfo.Remarks = $event.target.value"
+                    [value]="BookingInfo.Remarks">
+                </div>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

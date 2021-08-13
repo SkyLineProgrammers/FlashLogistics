@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "default": "test-project-9e39c",
+    "LogisticManagement": "logisticmanagement",
+    "KaafLogisticManagement": "kaaflogistics"
+  }
+}

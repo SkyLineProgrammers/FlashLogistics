@@ -1,0 +1,705 @@
+<div class="panel-header panel-header-sm">
+</div>
+<div class="main-content">
+
+  <div *ngIf="!siPrintShow" class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">
+
+            <div class="row">
+
+              <div class="col-md-8">
+                <b>Booking List</b>
+              </div>
+
+              <div class="col-md-1 pr-1">
+                <input type="button" (click)="copy()" class="form-control"
+                  style="cursor: pointer; font-size: 12px; background-color: #1d1c56; color: white"
+                  placeholder="Company" value="copy">
+              </div>
+              <div class="col-md-1 pr-1">
+                <input type="button" (click)="export()" class="form-control"
+                  style="cursor: pointer; font-size: 12px; background-color: #1d1c56; color: white"
+                  placeholder="Company" value="Export">
+              </div>
+              <div class="col-md-1 pr-1">
+                <input type="button" (click)="print()" class="form-control"
+                  style="cursor: pointer; font-size: 12px; background-color: #1d1c56; color: white"
+                  placeholder="Company" value="Print">
+              </div>
+
+            </div>
+
+
+
+          </h4>
+
+        </div>
+        <div class="card-body">
+
+          <form>
+
+            <div class="row">
+
+
+              <div class="col-md-3 pr-1">
+                <div class="form-group">
+                  <label class="BoldLabel">&nbsp;&nbsp;Search by ID / Phone / Name / Amount</label>
+                  <input type="text" class="form-control" [value]="searchContent"
+                    (input)="searchContent = $event.target.value">
+                </div>
+              </div>
+              <div class="col-md-2 pr-1">
+                <input type="button" (click)="search(searchContent)" class="form-control"
+                  style="cursor: pointer; margin-top: 14%; background-color: #1d1c56; color: white"
+                  placeholder="Company" value="Search">
+              </div>
+
+              <div class="col-md-1 pr-1"></div>
+
+
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label class="BoldLabel">Start Date</label>
+                  <input type="date" class="form-control" (input)="startDate = $event.target.value" [value]="startDate">
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label class="BoldLabel">End Date</label>
+                  <input type="date" class="form-control" (input)="endDate = $event.target.value" [value]="endDate">
+                </div>
+              </div>
+              <div class="col-md-1 pr-1">
+                <input type="button" (click)="dateTest()" class="form-control"
+                  style="cursor: pointer; margin-top: 34%; background-color: #1d1c56; color: white"
+                  placeholder="Company" value="Apply">
+              </div>
+
+            </div>
+
+
+            <div class="row">
+
+              <!-- <div class="col-md-1"></div> -->
+
+              <div *ngIf="statusBtn == 0" class="col-md-2">
+                <input type="button" (click)="tabStatus('all')" class="form-control"
+                  style="cursor: pointer; margin-top: 10%; margin-bottom: 5%; background-color: #1d1c56; color: white; border: 2px solid white;"
+                  placeholder="Company" value="All Orders">
+              </div>
+
+              <div *ngIf="statusBtn != 0" class="col-md-2">
+                <input type="button" (click)="tabStatus('all')" class="form-control"
+                  style="cursor: pointer; margin-top: 10%; margin-bottom: 5%; background-color: white; color: #1d1c56; border: 2px solid #1d1c56;"
+                  placeholder="Company" value="All Orders">
+              </div>
+
+
+              <div *ngIf="statusBtn == 5" class="col-md-2">
+                <input type="button" (click)="tabStatus('Booked')" class="form-control"
+                  style="cursor: pointer; margin-top: 10%; margin-bottom: 5%; background-color: #1d1c56; color: white; border: 2px solid white;"
+                  placeholder="Company" value="Booked Orders">
+              </div>
+
+              <div *ngIf="statusBtn != 5" class="col-md-2">
+                <input type="button" (click)="tabStatus('Booked')" class="form-control"
+                  style="cursor: pointer; margin-top: 10%; margin-bottom: 5%; background-color: white; color: #1d1c56; border: 2px solid #1d1c56;"
+                  placeholder="Company" value="Booked Orders">
+              </div>
+
+
+              <div *ngIf="statusBtn == 1" class="col-md-2">
+                <input type="button" (click)="tabStatus('Arrived')" class="form-control"
+                  style="cursor: pointer; margin-top: 10%; margin-bottom: 5%; background-color: #1d1c56; color: white; border: 2px solid white;"
+                  placeholder="Company" value="Arrived Orders">
+              </div>
+
+              <div *ngIf="statusBtn != 1" class="col-md-2">
+                <input type="button" (click)="tabStatus('Arrived')" class="form-control"
+                  style="cursor: pointer; margin-top: 10%; margin-bottom: 5%; background-color: white; color: #1d1c56; border: 2px solid #1d1c56;"
+                  placeholder="Company" value="Arrived Orders">
+              </div>
+
+
+              <div *ngIf="statusBtn == 2" class="col-md-2">
+                <input type="button" (click)="tabStatus('Dispatched')" class="form-control"
+                  style="cursor: pointer; margin-top: 10%; margin-bottom: 5%; background-color: #1d1c56; color: white; border: 2px solid white;"
+                  placeholder="Company" value="Dispatched Orders">
+              </div>
+
+              <div *ngIf="statusBtn != 2" class="col-md-2">
+                <input type="button" (click)="tabStatus('Dispatched')" class="form-control"
+                  style="cursor: pointer; margin-top: 10%; margin-bottom: 5%; background-color: white; color: #1d1c56; border: 2px solid #1d1c56;"
+                  placeholder="Company" value="Dispatched Orders">
+              </div>
+
+
+              <div *ngIf="statusBtn == 3" class="col-md-2">
+                <input type="button" (click)="tabStatus('Delivered')" class="form-control"
+                  style="cursor: pointer; margin-top: 10%; margin-bottom: 5%; background-color: #1d1c56; color: white; border: 2px solid white;"
+                  placeholder="Company" value="Delivered Orders">
+              </div>
+
+              <div *ngIf="statusBtn != 3" class="col-md-2">
+                <input type="button" (click)="tabStatus('Delivered')" class="form-control"
+                  style="cursor: pointer; margin-top: 10%; margin-bottom: 5%; background-color: white; color: #1d1c56; border: 2px solid #1d1c56;"
+                  placeholder="Company" value="Delivered Orders">
+              </div>
+
+
+
+              <div *ngIf="statusBtn == 4" class="col-md-2">
+                <input type="button" (click)="tabStatus('Refused')" class="form-control"
+                  style="cursor: pointer; margin-top: 10%; margin-bottom: 5%; background-color: #a1092f; color: white; border: 2px solid white;"
+                  placeholder="Company" value="Return Orders">
+              </div>
+
+              <div *ngIf="statusBtn != 4" class="col-md-2">
+                <input type="button" (click)="tabStatus('Refused')" class="form-control"
+                  style="cursor: pointer; margin-top: 10%; margin-bottom: 5%; background-color: white; color: #a1092f; border: 2px solid #a1092f;"
+                  placeholder="Company" value="Return Orders">
+              </div>
+
+
+
+
+
+            </div>
+
+
+
+          </form>
+
+          <div *ngIf="bookingList.length != 0" class="table-responsive">
+            <table class="table">
+              <thead>
+                <th></th>
+                <th> ({{isCount}}) </th>
+                <th>
+                  <input type="text" class="form-control" placeholder="Shipper Name"
+                    (change)="changeShipper($event.target.value)">
+                </th>
+                <th>
+                  <input type="text" class="form-control" placeholder="CN Name"
+                    (change)="changeName($event.target.value)">
+                </th>
+                <th>
+                  <input disabled type="text" class="form-control" value="Designation">
+                </th>
+                <th>
+                  <input disabled type="text" class="form-control" value="Status">
+                </th>
+                <th>
+                  <input type="text" class="form-control" placeholder="CN #" (change)="changeCN($event.target.value)">
+                </th>
+                <th>
+                  <input disabled type="text" class="form-control" value="Weight">
+                </th>
+                <th>
+                  <input disabled type="text" class="form-control" value="COD">
+                </th>
+                <th>
+
+                </th>
+                <th></th>
+                <th></th>
+
+              </thead>
+              <thead style="text-align: center;" class="text-primary">
+                <th>
+                  <input style="margin-top : -2%; margin-left: 0.2%;" class="form-check-input" type="checkbox"
+                    (change)="checkAll($event)">
+                  <span class="form-check-sign"></span>
+                  <!-- <h3 (click)="checkAll()">H1</h3> -->
+                </th>
+                <th style="color: #1d1c56">
+                  Booking Date
+                </th>
+                <!-- <th style="color: #1d1c56">
+                  Status
+                </th> -->
+                <th style="color: #1d1c56">
+                  Shipper Name
+                </th>
+                <th style="color: #1d1c56">
+                  CN Name
+                </th>
+                <th style="color: #1d1c56">
+                  Destination
+                </th>
+                <th style="color: #1d1c56">
+                  Status
+                </th>
+                <th style="color: #1d1c56">
+                  Consignments #
+                </th>
+                <th style="color: #1d1c56">
+                  Weight
+                </th>
+                <th style="color: #1d1c56">
+                  COD Amount
+                </th>
+                <!-- <th style="color: #1d1c56">
+                  Packet Amount
+                </th> -->
+                <th style="color: #1d1c56">
+                  Print
+                </th>
+                <th style="color: #1d1c56">
+                  View
+                </th>
+                <th *ngIf="this.logerInfo.isAdmin == 1" style="color: #1d1c56">
+                  Edit
+                </th>
+                <th *ngIf="this.logerInfo.isAdmin != 1" style="color: #1d1c56">
+                  Export
+                </th>
+              </thead>
+              <tbody>
+                <tr style="text-align: center;" *ngFor="let loop of bookingList; let Sno = index">
+                  <td>
+                    <input *ngIf="!loop.isCencle" style="margin-top : -0.5%; margin-left: 0.2%;"
+                      class="form-check-input" type="checkbox" [(ngModel)]="loop.isCheck"
+                      (change)="checkValue(Sno , $event)">
+                    <span class="form-check-sign"></span>
+                  </td>
+                  <td *ngIf="loop.isCencle" style="color: red;">
+                    {{loop.BookedDate.slice(0, -5)}}
+                  </td>
+                  <td *ngIf="!loop.isCencle">
+                    {{loop.BookedDate.slice(0, -5)}}
+                  </td>
+                  <td *ngIf="loop.isCencle" style="color: red;">
+                    {{loop.shiperName}}
+                  </td>
+                  <td *ngIf="!loop.isCencle">
+                    {{loop.shiperName}}
+                  </td>
+                  <td *ngIf="loop.isCencle" style="color: red;">
+                    {{loop.ConsigneeName}}
+                  </td>
+                  <td *ngIf="!loop.isCencle">
+                    {{loop.ConsigneeName}}
+                  </td>
+                  <td *ngIf="loop.isCencle" style="color: red;">
+                    {{loop.DestinationCity}}
+                  </td>
+                  <td *ngIf="!loop.isCencle">
+                    {{loop.DestinationCity}}
+                  </td>
+                  <!-- Status  -->
+                  <td
+                    *ngIf="loop.OrderBooked && !loop.ArrivedatStation && !loop.ReadyToDispatch && !loop.Dispacthed && !loop.CallNotResponse && !loop.Delivered && !loop.Refused">
+                    Booked
+                  </td>
+                  <td
+                    *ngIf="loop.OrderBooked && loop.ArrivedatStation && !loop.ReadyToDispatch && !loop.Dispacthed && !loop.CallNotResponse && !loop.Delivered && !loop.Refused">
+                    Arrived
+                  </td>
+                  <td
+                    *ngIf="loop.OrderBooked && loop.ArrivedatStation && loop.ReadyToDispatch && !loop.Dispacthed && !loop.CallNotResponse && !loop.Delivered && !loop.Refused">
+                    Ready to Dispatched
+                  </td>
+                  <td
+                    *ngIf="loop.OrderBooked && loop.ArrivedatStation && loop.ReadyToDispatch && loop.Dispacthed && !loop.CallNotResponse && !loop.Delivered && !loop.Refused">
+                    Dispatched
+                  </td>
+                  <td
+                    *ngIf="loop.OrderBooked && loop.ArrivedatStation && loop.ReadyToDispatch && loop.Dispacthed && loop.CallNotResponse && !loop.Delivered && !loop.Refused">
+                    Call not response
+                  </td>
+                  <td
+                    *ngIf="loop.OrderBooked && loop.ArrivedatStation && loop.ReadyToDispatch && loop.Dispacthed && !loop.CallNotResponse && loop.Delivered && !loop.Refused">
+                    Delivered
+                  </td>
+                  <td
+                    *ngIf="loop.OrderBooked && loop.ArrivedatStation && loop.ReadyToDispatch && loop.Dispacthed && !loop.CallNotResponse && !loop.Delivered && loop.Refused && !loop.isCencle">
+                    Refused
+                  </td>
+                  <td *ngIf="loop.isCencle" style="color: red;">
+                    Cenceled
+                  </td>
+
+                  <!-- Status  -->
+
+                  <td *ngIf="loop.isCencle" style="color: red;">
+                    {{loop.BookingID}}
+                  </td>
+                  <td *ngIf="!loop.isCencle">
+                    {{loop.BookingID}}
+                  </td>
+                  <td *ngIf="loop.isCencle" style="color: red;">
+                    {{loop.Weight}}
+                  </td>
+                  <td *ngIf="!loop.isCencle">
+                    {{loop.Weight}}
+                  </td>
+                  <td *ngIf="loop.isCencle" style="color: red;">
+                    {{loop.Amount}}
+                  </td>
+                  <td *ngIf="!loop.isCencle">
+                    {{loop.Amount}}
+                  </td>
+                  <!-- <td *ngIf="loop.isCencle" style="color: red;">
+                    {{loop.Amount}}
+                  </td>
+                  <td *ngIf="!loop.isCencle">
+                    {{loop.Amount}}
+                  </td> -->
+                  <td *ngIf="loop.isCencle"></td>
+                  <td *ngIf="!loop.isCencle" (click)="individualPrint(Sno , $event)">
+                    <img src="https://i.ya-webdesign.com/images/using-png-files-for-print-5.png" width="20px">
+                  </td>
+                  <td *ngIf="loop.isCencle"></td>
+                  <td *ngIf="!loop.isCencle" (click)="viewBooking(loop)" data-toggle="modal" data-target="#myModal">
+                    <img
+                      src="https://icons-for-free.com/iconfiles/png/512/preview+see+seen+view+icon-1320168711570288480.png"
+                      width="20px">
+                  </td>
+                  <td *ngIf="this.logerInfo.isAdmin == 1">
+                    <input *ngIf="!loop.isCencle" type="button" (click)="Editmove(loop)"
+                      [routerLink]="['/Logistic/BookingForm']" class="form-control"
+                      style="width: 100%; cursor: pointer; background-color: #1d1c56; color: white"
+                      placeholder="Company" value="Edit Booking">
+                    <input *ngIf="loop.isCencle" type="button" (click)="Editmove(loop)" disabled class="form-control"
+                      style="width: 100%; cursor: grab; background-color: #a3042c; color: white" placeholder="Company"
+                      value="Cenceled">
+                  </td>
+
+                  <td *ngIf="this.logerInfo.isAdmin != 1">
+                    <!-- BluEx enable -->
+                    <input *ngIf="!loop.isCencle && !loop.isBlueExVar" type="button" (click)="BtnSaveBlueEx(loop)"
+                      class="form-control" style="width: 100%; cursor: pointer; background-color: #1d1c56; color: white"
+                      placeholder="Company" value="Export BlueEx">
+
+                    <!-- BluEx disabled -->
+                    <input *ngIf="!loop.isCencle && loop.isBlueExVar" disabled type="button" class="form-control"
+                      style="width: 100%; cursor: pointer; background-color: #d1d1d1; color: white"
+                      placeholder="Company" value="Exported BlueEx">
+
+                    <!-- Cencel -->
+                    <input *ngIf="loop.isCencle" type="button" disabled class="form-control"
+                      style="width: 100%; cursor: grab; background-color: #a3042c; color: white" placeholder="Company"
+                      value="cancelled">
+                  </td>
+
+
+                </tr>
+              </tbody>
+            </table>
+
+
+            <p *ngIf="isLoadMoreShow" (click)="loadMore()"
+              style="text-align: center; color: #1d1c56; font-size: 20px; cursor: pointer;  padding-bottom: 5px;">
+              Load More ...</p>
+
+
+          </div>
+
+          <img *ngIf="bookingList.length == 0"
+            src="https://firebasestorage.googleapis.com/v0/b/logisticmanagement.appspot.com/o/photos%2Femptydata12345.png?alt=media&token=3eefbebb-dbe2-42b3-b5d0-f6042f0392d1"
+            width="100%" />
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="siPrintShow" class="row">
+
+
+    <div class="col-md-12">
+
+
+
+      <div class="card">
+        <div class="card-body">
+
+          <form>
+            <div class="row">
+              <div class="col-md-9 pr-1"></div>
+
+
+              <div class="col-md-1 pr-1">
+                <input type="button" (click)="openPrint()" class="form-control"
+                  style="cursor: pointer; margin-top: 30%; background-color: #1d1c56; color: white"
+                  placeholder="Company" value="Print Now">
+              </div>
+
+              <div class="col-md-1 pr-1">
+                <input type="button" (click)="closePrint()" class="form-control"
+                  style="cursor: pointer; margin-top: 30%; background-color: #b30911; color: white"
+                  placeholder="Company" value="Close">
+              </div>
+
+
+            </div>
+          </form>
+
+          <div id="PrintDiv">
+
+            <div *ngFor="let loop of printArry"
+              style="width: 90%; height: 500px;margin-right: auto; margin-left: auto; padding-left: 13px; padding-top: 5px;">
+
+
+              <!-- Row One -->
+
+              <div style="width: 52%; float: left; border: black 2px solid; height: 151px;">
+
+
+                <div style="width: 30%; float: left; margin-top : 5%">
+                  <img
+                    src="https://firebasestorage.googleapis.com/v0/b/alertlogistics-192c0.appspot.com/o/logo%20falsh.png?alt=media&token=7c69d0ca-fc8d-4b67-809d-53e7310848b7"
+                    width="150px" style="margin-left: 2%;" />
+                </div>
+
+                <div style="width: 70%; float: left;">
+                  <ngx-barcode [bc-value]="loop.BookingID" [bc-display-value]="true"></ngx-barcode>
+                </div>
+
+              </div>
+
+              <div style="width: 43.5%; float: left; border: black 2px solid; padding: 5px;">
+
+                <table border="2" width="100%" style="border-collapse: collapse;">
+                  <tr style="height: 45px;">
+                    <th>
+                      Date
+                    </th>
+                    <th>
+                      {{loop.BookedDate.split(" ")[0]}}
+                    </th>
+                    <th>
+                      Pieces
+                    </th>
+                    <th>
+                      {{loop.Pieces}}
+                    </th>
+                  </tr>
+
+                  <tr style="height: 45px;">
+
+                    <th>
+                      Weight
+                    </th>
+                    <th>
+                      {{loop.Weight}} Kg
+                    </th>
+                    <th>
+                      Fragile
+                    </th>
+                    <th>
+                      {{loop.Fragile}}
+                    </th>
+                  </tr>
+
+
+                  <tr style="height: 45px;">
+
+                    <th>
+                      <b>Remarks</b>
+                      <!-- <b>COD Amount</b> -->
+                    </th>
+                    <th style="font-size: 10px;">
+                      <!-- <b>Rs. {{loop.COD}}</b> -->
+                      <b>{{loop.Remarks}}</b>
+                    </th>
+                    <th>
+                      Decd Inc. Value
+                    </th>
+                    <th>
+                      Rs. 0
+                    </th>
+                  </tr>
+
+
+                </table>
+
+
+
+              </div>
+
+              <!-- Row Two -->
+
+              <div style="width: 52%; float: left; border: black 2px solid; height: 220px; padding-left: 2%;">
+                <br>
+                <p style="font-size: 18px;">
+                  <b>Shipper</b> : {{loop.ShiperInfo.ShiperID}} / {{loop.ShiperInfo.CompanyName}}
+                </p>
+                <p style="font-size: 18px;">
+                  <b>Cell Number</b> : {{loop.ShiperInfo.CompanyPhone}}
+                </p>
+                <p *ngIf="loop.ShiperInfo.CompanyEmail != ''" style="font-size: 18px;">
+                  <b>Email</b> : {{loop.ShiperInfo.CompanyEmail}}
+                </p>
+                <p style="font-size: 18px;">
+                  <b>Address</b> : {{loop.ShiperInfo.Location}}
+                </p>
+                <!-- <p style="font-size: 18px;">
+                  <b>Return Address</b> : {{loop.ShiperInfo.Location}}
+                </p> -->
+
+              </div>
+
+              <div style="width: 43.5%; float: left; border: black 2px solid; padding: 5px; height: 220px;">
+                <p style="font-size: 18px;">
+                  <b>Consignee Name </b> : {{loop.ConsigneeName}} <br>
+                  <b>Consignee Contact </b> : ( {{loop.ConsigneeContact}} ) <br>
+                  <span *ngIf="loop.ConsigneeEmail != ''"><b>Consignee Email </b> : {{loop.ConsigneeEmail}} <br></span>
+                  <b>Consignee Address </b> : {{loop.ConsigneeAdress}}
+                </p>
+
+                <!-- <p style="font-size: 13px;">
+                  <b style="float: left;">COD : </b>
+                  <ngx-barcode style="float: left; margin-top: -4%; width: 60%;" [bc-value]="loop.COD"></ngx-barcode>
+                </p> -->
+
+
+              </div>
+
+              <!-- Row Three -->
+
+              <div style="width: 52%; float: left; border: black 2px solid; height: 63px; padding-left: 2%;">
+
+                <div style="width: 68%; float: left; border-right: solid 2px black;">
+                  <h2 style="text-align: center; margin-top: 17px;">Customer Order #</h2>
+                </div>
+
+                <div style="width: 30%; float: left; ">
+                  <h3 style="text-align: center; margin-top: 15px;">{{loop.CustomerRef}}</h3>
+                </div>
+
+              </div>
+
+              <div style="width: 43.5%; float: left; border: black 2px solid; height: 63px; padding-left: 2%;">
+                <div style="width: 34%; float: left; border-right: solid 2px black;">
+                  <h2 style="margin-top: 17px;">COD Amount</h2>
+                </div>
+
+                <div style="width: 65%; float: left; ">
+                  <!-- <ngx-barcode [bc-value]="loop.COD" [bc-display-value]="true"></ngx-barcode> -->
+                  <h3 style="text-align: center; margin-top: 15px;">Rs. {{loop.Amount}}</h3>
+                </div>
+              </div>
+
+              <!-- Row Four -->
+
+              <div
+                style="width: 95.5%; float: left; border: black 2px solid; height: 56px; padding-left: 2%; margin-top: 4px; padding-top: 1.5%;">
+
+                <p><b>Product Detail : </b>{{loop.ProductDetail}}</p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+  </div>
+
+</div>
+
+
+
+
+<!-- modal working -->
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title mt2">{{bookingModal.BookingID}} ( RS. {{bookingModal.Amount}} )</h4>
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-12 col-md-4">
+            <h3><b>Shipper Name</b></h3>
+            <p class="mt">{{bookingModal.shiperName}}</p>
+          </div>
+          <div class="col-sm-12 col-md-4">
+            <h3><b>Consignee Name</b></h3>
+            <p class="mt">{{bookingModal.ConsigneeName}}</p>
+          </div>
+          <div class="col-sm-12 col-md-4">
+            <h3><b>Consignee Cell</b></h3>
+            <p class="mt">{{bookingModal.ConsigneeContact}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 col-md-4">
+            <h3><b>Designation</b></h3>
+            <p class="mt">{{bookingModal.DestinationCity}}</p>
+          </div>
+          <div class="col-sm-12 col-md-8">
+            <h3><b>Consignee Address</b></h3>
+            <p class="mt">{{bookingModal.ConsigneeAdress}}</p>
+          </div>
+        </div>
+
+
+
+        <!-- Status  -->
+        <div class="row">
+          <div class="col-sm-12 col-md-4">
+            <h3><b>Booked Date</b></h3>
+            <p class="mt">{{bookingModal.BookedDate.slice(0, -5)}}</p>
+          </div>
+          <div *ngIf="bookingModal.ArrivedatStation" class="col-sm-12 col-md-4">
+            <h3><b>Arrived Date</b></h3>
+            <p class="mt">{{bookingModal.ArrivedDate.slice(0, -5)}}</p>
+          </div>
+          <div *ngIf="bookingModal.Dispacthed" class="col-sm-12 col-md-4">
+            <h3><b>Dispacthed Date</b></h3>
+            <p class="mt">{{bookingModal.DispacthedDate.slice(0, -5)}}</p>
+          </div>
+          <div *ngIf="bookingModal.Delivered" class="col-sm-12 col-md-4">
+            <h3><b>Delivered Date</b></h3>
+            <p class="mt">{{bookingModal.DeliveredDate.slice(0, -5)}}</p>
+          </div>
+          <div *ngIf="bookingModal.Refused" class="col-sm-12 col-md-4">
+            <h3><b>Refused Date</b></h3>
+            <p class="mt">{{bookingModal.RefusedDate.slice(0, -5)}}</p>
+          </div>
+          <div *ngIf="bookingModal.CallNotResponse" class="col-sm-12 col-md-4">
+            <h3><B>Call Not Response Date</B></h3>
+            <p class="mt">{{bookingModal.CallNotResponseDate.slice(0, -5)}}</p>
+          </div>
+        </div>
+
+
+
+        <div *ngIf="bookingModal.isBlueExVar" class="row">
+          <div class="col-sm-12 col-md-4">
+            <h3><B>BlueEx Order Code</B></h3>
+            <p class="mt">{{bookingModal.blueExOrderCode}}</p>
+          </div>
+
+          <div class="col-sm-12 col-md-6">
+            <h3><B>BlueEx Consigment Number</B></h3>
+            <p class="mt">{{bookingModal.blueExCn}}</p>
+          </div>
+        </div>
+
+
+      </div>
+
+
+    </div>
+  </div>
+</div>

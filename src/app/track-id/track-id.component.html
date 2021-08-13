@@ -1,0 +1,49 @@
+<div class="panel-header panel-header-sm">
+</div>
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="title">Track Order</h5>
+        </div>
+        <div class="card-body">
+          <form>
+            <div class="row">
+              <div class="col-md-8 pr-1">
+                <div class="form-group">
+                  <label>Order ID</label>
+                  <input type="text" class="form-control" (input)="OrderId = $event.target.value" placeholder="Ls-0001"
+                    [value]="OrderId">
+                </div>
+              </div>
+              <div class="col-md-3 pr-1">
+                <input type="button" (click)="BtnSearch()" class="form-control"
+                  style="cursor: pointer; background-color: #1d1c56; color: white ; margin-top: 10%;"
+                  placeholder="Company" value="Search">
+              </div>
+            </div>
+
+            <div *ngFor="let loop of StatusReport" class="row">
+              <div class="col-md-1 pr-1">
+                <img style="margin-left: 50%;"
+                  src="https://cdn3.iconfinder.com/data/icons/flat-actions-icons-9/792/Tick_Mark_Dark-512.png"
+                  width="40%" />
+              </div>
+              <div class="col-md-11 pr-1">
+                <h4>
+                  {{loop}}
+                </h4>
+              </div>
+
+
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

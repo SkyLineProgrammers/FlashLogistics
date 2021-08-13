@@ -1,0 +1,226 @@
+<div class="panel-header panel-header-sm">
+</div>
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+
+
+          <div class="row">
+            <div class="col-md-9 pr-1">
+              <h5 class="title">Create Payment</h5>
+            </div>
+            <div class="col-md-2 pr-1">
+              <input *ngIf="this.PaymentKey == ''" type="button" (click)="BtnSaveData(PaymentInfo)" class="form-control"
+                style="cursor: pointer; background-color: #1d1c56; color: white" placeholder="Company"
+                value="Add Payment">
+
+              <input *ngIf="this.PaymentKey != ''" type="button" (click)="updateStatus()" class="form-control"
+                style="cursor: pointer; background-color: #1d1c56; color: white" placeholder="Company"
+                value="Update Status">
+            </div>
+          </div>
+
+        </div>
+        <div class="card-body" style="clear: both">
+          <form>
+
+            <div class="row">
+              <div class="col-md-5 pr-1">
+                <div class="form-group">
+                  <label>Search CHQ: </label>
+                  <input type="text" class="form-control" [value]="SearchKey" (input)="SearchKey = $event.target.value">
+                </div>
+              </div>
+              <div class="col-md-4 pl-1">
+                <div class="form-group">
+                  <input type="button" (click)="SearchData(SearchKey)" class="form-control"
+                    style="cursor: pointer; background-color: #1d1c56; color: white; width: 20%; margin-top: 5.5%"
+                    placeholder="Company" value="search">
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row">
+
+              <div *ngIf="this.PaymentKey != ''" class="col-md-5 px-1">
+                <div style="padding-left: 1%; padding-right: 1%;" class="form-group">
+                  <label>Client Name:</label>
+                  <input disabled type="text" (input)="PaymentInfo.ClientName = $event.target.value"
+                    [value]="PaymentInfo.ClientName" class="form-control">
+                </div>
+              </div>
+
+
+              <div *ngIf="this.PaymentKey == ''" class="col-md-5 px-1">
+                <div style="padding-left: 1%; padding-right: 1%;" class="form-group">
+                  <label>Select Shipper</label>
+                  <!-- <input type="text" class="form-control" (input)="RiderInfo.Balance = $event.target.value" [value]="RiderInfo.Balance"> -->
+                  <select class="form-control" [(ngModel)]="SelectShiper" (change)="selectShiperFunc($event)">
+                    <!-- <option selected="selected" disabled>WorkOut Type</option>  -->
+                    <option *ngFor="let loop of ShiperList" [value]="loop.ShiperKey">{{loop.BusinessName}}</option>
+                  </select>
+                </div>
+              </div>
+
+
+              <div class="col-md-3 px-1">
+                <div class="form-group">
+                  <label>Payer Name:</label>
+                  <input type="text" (input)="PaymentInfo.PayerName = $event.target.value"
+                    [value]="PaymentInfo.PayerName" class="form-control">
+                </div>
+              </div>
+              <div class="col-md-4 pl-1">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">City:</label>
+                  <input type="text" class="form-control" (input)="PaymentInfo.City = $event.target.value"
+                    [value]="PaymentInfo.City">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 pr-1">
+                <div class="form-group">
+                  <label>Cheque #: </label>
+                  <input type="text" class="form-control" (input)="PaymentInfo.cheque = $event.target.value"
+                    [value]="PaymentInfo.cheque">
+                </div>
+              </div>
+              <div class="col-md-4 pl-1">
+                <div class="form-group">
+                  <label>Bank Name</label>
+                  <input type="text" class="form-control" (input)="PaymentInfo.Bank = $event.target.value"
+                    [value]="PaymentInfo.Bank">
+                </div>
+              </div>
+              <div class="col-md-4 pl-1">
+                <div class="form-group">
+                  <label>Amount:</label>
+                  <input disabled type="number" class="form-control" (input)="PaymentInfo.Amount = $event.target.value"
+                    [value]="PaymentInfo.Amount">
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Cheque Date</label>
+                  <input type="date" class="form-control" (input)="PaymentInfo.Date = $event.target.value"
+                    [value]="PaymentInfo.Date">
+                </div>
+              </div>
+              <div class="col-md-6 pr-1">
+                <div class="form-group">
+                  <label>Payment Method</label>
+                  <input type="text" class="form-control" (input)="PaymentInfo.PaymentMethod = $event.target.value"
+                    [value]="PaymentInfo.PaymentMethod">
+                </div>
+              </div>
+            </div>
+
+            <div class="row" *ngIf="PaymentKey != ''" style="padding-left: 3%;">
+
+              <div class="col-md-4 pl-1" *ngIf="PaymentInfo.status != 'Cleared' && PaymentInfo.status != 'Cencelled'">
+                <div class="form-group">
+                  <label class="BoldLabel"> Paid :</label> <br>
+                  <input style="margin-left: 2%; margin-top: 2%;" type="radio" (change)="isRadioPaid()"
+                    [checked]="isPaid" />
+                  <!-- <input type="checkbox" class="form-control"  (input)="ShiperInfo.IsActive = $event.target.value" [value]="ShiperInfo.IsActive"> -->
+                </div>
+              </div>
+
+
+              <div class="col-md-4 pl-1" *ngIf="PaymentInfo.status != 'Cleared' && PaymentInfo.status != 'Cencelled'">
+                <div class="form-group">
+                  <label class="BoldLabel"> Cencelled :</label> <br>
+                  <input style="margin-left: 2%; margin-top: 2%;" type="radio" (change)="isRadioCenceled()"
+                    [checked]="isCencel" />
+                  <!-- <input type="checkbox" class="form-control"  (input)="ShiperInfo.IsActive = $event.target.value" [value]="ShiperInfo.IsActive"> -->
+                </div>
+              </div>
+
+            </div>
+
+            <hr *ngIf="this.PaymentKey != ''">
+
+
+            <div *ngIf="bookingList.length != 0" style="padding-left: 3%; padding-right: 3%;"
+              class="table-responsive row">
+              <table class="table">
+                <thead class="text-primary">
+                  <th *ngIf="this.PaymentKey == ''"></th>
+                  <th style="color: #1d1c56">
+                    Booking Date
+                  </th>
+                  <th style="color: #1d1c56">
+                    CN #
+                  </th>
+                  <th style="color: #1d1c56">
+                    Destination
+                  </th>
+                  <th style="color: #1d1c56">
+                    Zone
+                  </th>
+                  <th style="color: #1d1c56">
+                    Order ID
+                  </th>
+                  <th style="color: #1d1c56">
+                    Weight
+                  </th>
+                  <th style="color: #1d1c56">
+                    COD Amount
+                  </th>
+                  <th style="color: #1d1c56">
+                    Delivery Charges
+                  </th>
+
+                </thead>
+                <tbody>
+                  <tr *ngFor="let loop of bookingList; let Sno = index">
+                    <td *ngIf="this.PaymentKey == ''">
+                      <input style="margin-top : -0.5%; margin-left: 0.2%;" class="form-check-input" type="checkbox"
+                        (change)="checkValue(Sno , $event)">
+                      <span class="form-check-sign"></span>
+                    </td>
+                    <td>
+                      {{loop.BookedDate}}
+                    </td>
+                    <td>
+                      {{loop.BookingID}}
+                    </td>
+                    <td>
+                      {{loop.DestinationCity}}
+                    </td>
+                    <td>
+                      Local
+                    </td>
+                    <td>
+                      {{loop.BookingID}}
+                    </td>
+                    <td style="text-align: center;">
+                      {{loop.Weight}}
+                    </td>
+                    <td style="text-align: center;">
+                      {{loop.Amount}}
+                    </td>
+                    <td style="text-align: center;">
+                      {{loop.DeliveryCharges}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

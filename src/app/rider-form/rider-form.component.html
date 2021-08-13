@@ -1,0 +1,115 @@
+<div class="panel-header panel-header-sm">
+</div>
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+
+
+          <div class="row">
+            <div class="col-md-9 pr-1">
+              <h5 class="title">Rider Form</h5>
+            </div>
+            <div class="col-md-2 pr-1">
+              <input type="button" (click)="BtnSaveData(RiderInfo)" class="form-control"
+                style="cursor: pointer; background-color: #1d1c56; color: white" placeholder="Company"
+                [value]="RiderStatus">
+            </div>
+          </div>
+
+        </div>
+        <div class="card-body" style="clear: both">
+          <form>
+            <div class="row">
+              <div class="col-md-5 pr-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Rider Name*: </label>
+                  <input type="text" class="form-control" [value]="RiderInfo.RiderName"
+                    (input)="RiderInfo.RiderName = $event.target.value">
+                </div>
+              </div>
+              <div class="col-md-3 px-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Father Name*:</label>
+                  <input type="text" (input)="RiderInfo.FatherName = $event.target.value" [value]="RiderInfo.FatherName"
+                    class="form-control">
+                </div>
+              </div>
+              <div class="col-md-4 pl-1">
+                <div class="form-group">
+                  <label for="exampleInputEmail1" class="BoldLabel">CNIC Number*: </label>
+                  <input type="number" class="form-control" (input)="RiderInfo.CNICNumber = $event.target.value"
+                    [value]="RiderInfo.CNICNumber">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 pr-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Contact Number 1*: </label>
+                  <input type="number" class="form-control" (input)="RiderInfo.Mobile1 = $event.target.value"
+                    [value]="RiderInfo.Mobile1">
+                </div>
+              </div>
+              <div class="col-md-4 pl-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Contact Number 2</label>
+                  <input type="number" class="form-control" (input)="RiderInfo.Mobile2 = $event.target.value"
+                    [value]="RiderInfo.Mobile2">
+                </div>
+              </div>
+              <div class="col-md-4 pl-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Contact Number 3:</label>
+                  <input type="number" class="form-control" (input)="RiderInfo.Mobile3 = $event.target.value"
+                    [value]="RiderInfo.Mobile3">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="BoldLabel">Adress:</label>
+                  <input type="text" class="form-control" (input)="RiderInfo.Location = $event.target.value"
+                    [value]="RiderInfo.Location">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="BoldLabel">DOB</label>
+                  <input type="date" class="form-control" (input)="RiderInfo.DOB = $event.target.value"
+                    [value]="RiderInfo.DOB">
+                </div>
+              </div>
+              <div class="col-md-4 pr-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Balance:</label>
+                  <input type="number" class="form-control" (input)="RiderInfo.Balance = $event.target.value"
+                    [value]="RiderInfo.Balance">
+                </div>
+              </div>
+              <div class="col-md-3 px-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Status:</label>
+                  <!-- <input type="text" class="form-control" (input)="RiderInfo.Balance = $event.target.value" [value]="RiderInfo.Balance"> -->
+                  <select class="form-control" name="Status" [(ngModel)]="RiderInfo.Status"
+                    (ngModelChange)="statusSelected($event)">
+                    <!-- <option selected="selected" disabled>Employee Name/...</option> -->
+                    <option *ngFor="let emp of empInfo" [value]="emp.StatusName" selected="true">{{emp.StatusName}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

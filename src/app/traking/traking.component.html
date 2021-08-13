@@ -1,0 +1,319 @@
+<div class="panel-header panel-header-sm">
+</div>
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title"> <b>Tracking Management</b></h4>
+        </div>
+
+        <div class="card-body" style="clear: both">
+          <form>
+            <div class="row">
+              <div class="col-md-5 pr-1">
+                <div class="form-group">
+                  <label>Search Booking ID: </label>
+                  <input type="text" class="form-control" [value]="SearchKey" (input)="SearchKey = $event.target.value">
+                </div>
+              </div>
+              <div class="col-md-2 pl-1">
+                <div class="form-group">
+                  <input type="button" (click)="search(SearchKey)" class="form-control"
+                    style="cursor: pointer; background-color: #1d1c56; color: white; width: 100%; margin-top: 12%"
+                    placeholder="Company" value="Search">
+                </div>
+              </div>
+
+              <div class="col-md-2 pl-1">
+                <div class="form-group">
+                  <input type="file" id="upload" #upload style="display: none" (change)="incomingfile($event)"
+                    placeholder="Upload file" accept=".xlsx">
+                  <button mat-raised-button type="submit"
+                    style="cursor: pointer; background-color: #1d1c56; color: white; width: 100%; margin-top: 12% ; border-radius: 40px;"
+                    (click)="upload.click()" class="btn btn-danger pull-right">Import Excel Sheet</button>
+                </div>
+              </div>
+            </div>
+          </form>
+
+
+
+
+          <div *ngIf="bookingList.length != 0 && isShow" class="table-responsive">
+            <table class="table">
+              <thead class="text-primary">
+                <!-- <th style="color: #1d1c56">
+                  Booking Date
+                </th>
+                <th style="color: #1d1c56">
+                  Order ID
+                </th> -->
+              </thead>
+              <tbody>
+                <div *ngFor="let loop of bookingList; let Sno = index">
+                  <tr style="font-size: 11px;">
+                    <td>
+                      {{loop.BookingID}}
+                    </td>
+                    <td>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <label>Booked</label>
+                          <input style="margin-top: 5%;" [(ngModel)]="loop.OrderBooked" class="form-check-input"
+                            type="checkbox">
+                          <span class="form-check-sign"></span>
+                        </label>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <label>Arrived</label>
+                          <input style="margin-top: 5%;" (change)="selectStatus(Sno , 'arrive' , loop)"
+                            [(ngModel)]="loop.ArrivedatStation" class="form-check-input" type="checkbox">
+                          <span class="form-check-sign"></span>
+                        </label>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <label>Ready To Dispatch</label>
+                          <input style="margin-top: 5%;" (change)="selectStatus(Sno , 'ReadyToDispatch' , loop)"
+                            [(ngModel)]="loop.ReadyToDispatch" class="form-check-input" type="checkbox">
+                          <span class="form-check-sign"></span>
+                        </label>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <label>Dispacthed</label>
+                          <input style="margin-top: 5%;" (change)="selectStatus(Sno , 'Dispacthed' , loop)"
+                            [(ngModel)]="loop.Dispacthed" class="form-check-input" type="checkbox">
+                          <span class="form-check-sign"></span>
+                        </label>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <label>Call not Responed</label>
+                          <input style="margin-top: 5%;" (change)="selectStatus(Sno , 'CallNotResponse' , loop)"
+                            [(ngModel)]="loop.CallNotResponse" class="form-check-input" type="checkbox">
+                          <span class="form-check-sign"></span>
+                        </label>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <label>Delivered</label>
+                          <input style="margin-top: 5%;" (change)="selectStatus(Sno , 'Delivered' , loop)"
+                            [(ngModel)]="loop.Delivered" class="form-check-input" type="checkbox">
+                          <span class="form-check-sign"></span>
+                        </label>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <label>Refused</label>
+                          <input style="margin-top: 5%;" (change)="selectStatus(Sno , 'Refused' , loop)"
+                            [(ngModel)]="loop.Refused" class="form-check-input" type="checkbox">
+                          <span class="form-check-sign"></span>
+                        </label>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <label>Re Attemp Request</label>
+                          <input style="margin-top: 5%;" (change)="selectStatus(Sno , 'ReAttempRequest' , loop)"
+                            [(ngModel)]="Status.ReAttempRequest" class="form-check-input" type="checkbox">
+                          <span class="form-check-sign"></span>
+                        </label>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr style="font-size: 11px;">
+                    <td></td>
+                    <td>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <label>Ready To Return</label>
+                          <input style="margin-top: 5%;" (change)="selectStatus(Sno , 'MarkAsReturn' , loop)"
+                            [(ngModel)]="loop.MarkAsReturn" class="form-check-input" type="checkbox">
+                          <span class="form-check-sign"></span>
+                        </label>
+                      </div>
+                    </td>
+
+                    <td>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <label>Return To Shiper</label>
+                          <input style="margin-top: 5%;" (change)="selectStatus(Sno , 'ReturnToShiper' , loop)"
+                            [(ngModel)]="loop.ReturnToShiper" class="form-check-input" type="checkbox">
+                          <span class="form-check-sign"></span>
+                        </label>
+                      </div>
+                    </td>
+
+                    <td>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <label>Rider Assign</label>
+                          <input style="margin-top: 5%;" [(ngModel)]="loop.isRiderAssign" class="form-check-input"
+                            type="checkbox">
+                          <span class="form-check-sign"></span>
+                        </label>
+                      </div>
+                    </td>
+
+                    <td>
+                      <div *ngIf="!loop.ArrivedatStation" class="form-check">
+                        <label class="form-check-label">
+                          <label>Cancel Boooking</label>
+                          <input style="margin-top: 5%;" (change)="selectStatus(Sno , 'CancelBooking' , loop)"
+                            [(ngModel)]="loop.isCencle" class="form-check-input" type="checkbox">
+                          <span class="form-check-sign"></span>
+                        </label>
+                      </div>
+                    </td>
+                    <td *ngIf="loop.isBlueEx == undefined"></td>
+                    <td *ngIf="loop.isBlueEx != undefined && loop.isBlueEx">
+                      <div class="form-group">
+                        <input type="button" (click)="blueExStatusUpdate(loop.blueExCn , Sno)" class="form-control"
+                          style="cursor: pointer; background-color: #1d1c56; color: white; width: 100%;"
+                          placeholder="Company" value="Update BlueEx Status">
+                      </div>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+
+                  </tr>
+
+                </div>
+
+              </tbody>
+            </table>
+
+            <div class="row">
+              <div class="col-md-10">
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <input type="button" (click)="updateStatus()" class="form-control"
+                    style="cursor: pointer; background-color: #1d1c56; color: white; width: 100%; margin-top: 6%"
+                    placeholder="Company" value="Status Update">
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+
+
+          <!-- <div style="padding: 15px" *ngIf="isShow">
+            <div class="row">
+              <div class="col-md-9 pr-1">
+                <br>
+                <h2>Booking Deatils / Update Status</h2>
+                <h4>BookingID
+                  :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <span style="color:blue">{{Search_Data.BookingID}}</span>
+                </h4>
+                <h3>Consignee Name :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                    style="color:blue">{{Search_Data.ConsigneeName}}</span></h3>
+                <h3>Consignee Contact :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                    style="color:blue">{{Search_Data.ConsigneeContact}}</span></h3>
+                <h3>Consignee Address :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                    style="color:blue">{{Search_Data.ConsigneeAdress}}</span></h3>
+                <h3>Consignee Amount :&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">{{Search_Data.Amount}}</span>
+                </h3>
+              </div>
+
+
+              <div class="col-md-3 pr-1">
+                <div style="margin-top: 25%">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <label>Order Booked</label>
+                      <input disabled [(ngModel)]="Status.OrderBooked" class="form-check-input" type="checkbox">
+                      <span class="form-check-sign"></span>
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <label>Arrived at Station</label>
+                      <input disabled [(ngModel)]="Status.ArrivedatLocation" class="form-check-input" type="checkbox">
+                      <span class="form-check-sign"></span>
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <label>Ready tO Dispatch</label>
+                      <input disabled class="form-check-input" type="checkbox">
+                      <span class="form-check-sign"></span>
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <label>Arrived at Lcation</label>
+                      <input disabled [(ngModel)]="Status.ArrivedatLocation" class="form-check-input" type="checkbox">
+                      <span class="form-check-sign"></span>
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <label>Call Not Response</label>
+                      <input disabled [(ngModel)]="Status.CallNotResponse" class="form-check-input" type="checkbox">
+                      <span class="form-check-sign"></span>
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <label>Delivered</label>
+                      <input disabled [(ngModel)]="Status.Delivered" class="form-check-input" type="checkbox">
+                      <span class="form-check-sign"></span>
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <label>Un Delivered</label>
+                      <input disabled [(ngModel)]="Status.UnDelivered" class="form-check-input" type="checkbox">
+                      <span class="form-check-sign"></span>
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <label>Un Track Able</label>
+                      <input disabled [(ngModel)]="Status.UnTrackAble" class="form-check-input" type="checkbox">
+                      <span class="form-check-sign"></span>
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <label>Return</label>
+                      <input disabled [(ngModel)]="Status.MarkasReturn" class="form-check-input" type="checkbox">
+                      <span class="form-check-sign"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div> -->
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LS-43333,LS-447526,LS-57241 -->

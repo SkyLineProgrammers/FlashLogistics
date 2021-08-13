@@ -1,0 +1,356 @@
+<div class="panel-header panel-header-sm">
+</div>
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+
+
+          <div class="row">
+            <div class="col-md-9 pr-1">
+              <h5 class="title">Shipper Form</h5>
+            </div>
+            <div class="col-md-2 pr-1">
+              <input type="button" (click)="BtnSaveClick(ShiperInfo)" class="form-control"
+                style="cursor: pointer; background-color: #1d1c56; color: white" placeholder="Company"
+                [value]="ShiperStatus">
+            </div>
+          </div>
+
+        </div>
+        <div class="card-body" style="clear: both">
+          <form>
+            <div *ngIf="this.logerInfo.isAdmin != 1" class="row">
+              <div class="col-md-5 pr-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Company Name/Acc Title*: </label>
+                  <input type="text" class="form-control" [value]="ShiperInfo.CompanyName"
+                    (input)="ShiperInfo.CompanyName = $event.target.value">
+                </div>
+              </div>
+              <div class="col-md-3 px-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Owner Name*:</label>
+                  <input type="text" (input)="ShiperInfo.OwnerName = $event.target.value" [value]="ShiperInfo.OwnerName"
+                    class="form-control">
+                </div>
+              </div>
+              <div class="col-md-4 pl-1">
+                <div class="form-group">
+                  <label for="exampleInputEmail1" class="BoldLabel">CNIC Number*: </label>
+                  <input type="number" class="form-control" maxlength="10"
+                    (input)="ShiperInfo.CNICNumber = $event.target.value" [value]="ShiperInfo.CNICNumber ">
+                </div>
+              </div>
+            </div>
+            <div *ngIf="this.logerInfo.isAdmin != 1" class="row">
+              <div class="col-md-4 pr-1">
+                <div class="form-group">
+                  <label class="BoldLabel">NTN Number : </label>
+                  <input type="text" class="form-control" maxlength="13"
+                    (input)="ShiperInfo.NTNNumber = $event.target.value" [value]="ShiperInfo.NTNNumber">
+                </div>
+              </div>
+              <div class="col-md-4 pl-1">
+
+                <div *ngIf="this.ShiperStatus != 'Add Shiper'" class="form-group">
+                  <label class="BoldLabel">Designation city</label>
+                  <input disabled="" type="text" class="form-control" [value]="ShiperInfo.City">
+                </div>
+
+                <div *ngIf="this.ShiperStatus == 'Add Shiper'">
+                  <label class="BoldLabel">Destination City *:</label>
+                  <select style="height: 32px;" (change)="selectionComboCity($event)" class="form-control">
+                    <!-- <option selected="selected" disabled>Karachi</option> -->
+                    <option *ngFor="let loop of cityList" [value]="loop.cityName">
+                      {{loop.cityName}}</option>
+                  </select>
+                </div>
+
+                <!-- <div class="form-group">
+                  <label class="BoldLabel">City *</label>
+                  <input type="text" class="form-control" (input)="ShiperInfo.City = $event.target.value"
+                    [value]="ShiperInfo.City">
+                </div> -->
+              </div>
+              <div class="col-md-4 pl-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Company Email :</label>
+                  <input type="text" class="form-control" (input)="ShiperInfo.CompanyEmail = $event.target.value"
+                    [value]="ShiperInfo.CompanyEmail">
+                </div>
+              </div>
+            </div>
+            <div *ngIf="this.logerInfo.isAdmin != 1" class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="BoldLabel">Location*:</label>
+                  <input type="text" class="form-control" (input)="ShiperInfo.Location = $event.target.value"
+                    [value]="ShiperInfo.Location">
+                </div>
+              </div>
+            </div>
+            <div *ngIf="this.logerInfo.isAdmin != 1" class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="BoldLabel">Pickup Address*:</label>
+                  <input type="text" class="form-control" (input)="ShiperInfo.PickupAddress = $event.target.value"
+                    [value]="ShiperInfo.PickupAddress">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 pr-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Company Ph #*:</label>
+                  <input type="number" class="form-control" maxlength="11"
+                    (input)="ShiperInfo.CompanyPhone = $event.target.value" [value]="ShiperInfo.CompanyPhone">
+                </div>
+              </div>
+              <div class="col-md-4 px-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Mobile Number*:</label>
+                  <input type="number" class="form-control" maxlength="11"
+                    (input)="ShiperInfo.MobileNumber1 = $event.target.value" [value]="ShiperInfo.MobileNumber1">
+                </div>
+              </div>
+              <div class="col-md-4 pl-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Mobile Number2:</label>
+                  <input type="number" class="form-control" maxlength="11"
+                    (input)="ShiperInfo.MobileNumber2 = $event.target.value" [value]="ShiperInfo.MobileNumber2">
+                </div>
+              </div>
+            </div>
+            <div *ngIf="this.logerInfo.isAdmin != 1" class="row">
+              <div class="col-md-4 pr-1">
+                <div class="form-group">
+                  <label class="BoldLabel">URL:</label>
+                  <input type="text" class="form-control" (input)="ShiperInfo.URL = $event.target.value"
+                    [value]="ShiperInfo.URL">
+                </div>
+              </div>
+              <div class="col-md-4 px-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Business Name*:</label>
+                  <input type="text" class="form-control" (input)="ShiperInfo.BusinessName = $event.target.value"
+                    [value]="ShiperInfo.BusinessName">
+                </div>
+              </div>
+              <div class="col-md-4 pl-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Nature of Business*:</label>
+                  <input type="txet" class="form-control" (input)="ShiperInfo.NatureofBusiness = $event.target.value"
+                    [value]="ShiperInfo.NatureofBusiness">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 pr-1">
+                <div class="form-group">
+                  <label class="BoldLabel">User Name*:</label>
+                  <input *ngIf="this.ShiperKey == '' || this.logerInfo.isAdmin == 1" type="text" class="form-control"
+                    (input)="ShiperInfo.UserName = $event.target.value" [value]="ShiperInfo.UserName">
+                  <input *ngIf="this.ShiperKey != '' && this.logerInfo.isAdmin != 1" disabled type="text"
+                    class="form-control" (input)="ShiperInfo.UserName = $event.target.value"
+                    [value]="ShiperInfo.UserName">
+                </div>
+              </div>
+              <div class="col-md-4 px-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Password*:</label>
+                  <input *ngIf="this.ShiperKey == '' || this.logerInfo.isAdmin == 1" type="text" maxlength="9"
+                    class="form-control" (input)="ShiperInfo.Password = $event.target.value"
+                    [value]="ShiperInfo.Password">
+                  <input *ngIf="this.ShiperKey != '' && this.logerInfo.isAdmin != 1" disabled type="text" maxlength="9"
+                    class="form-control" (input)="ShiperInfo.Password = $event.target.value"
+                    [value]="ShiperInfo.Password">
+                </div>
+              </div>
+              <div class="col-md-4 pl-1">
+                <div *ngIf="this.logerInfo.isAdmin != 1" class="form-group">
+                  <label class="BoldLabel">IsActive :</label> <br>
+                  <input style="margin-left: 2%; margin-top: 2%;" type="checkbox"
+                    (change)=" ShiperInfo.IsActive = !ShiperInfo.IsActive " [checked]="ShiperInfo.IsActive" />
+                  <!-- <input type="checkbox" class="form-control"  (input)="ShiperInfo.IsActive = $event.target.value" [value]="ShiperInfo.IsActive"> -->
+                </div>
+              </div>
+            </div>
+
+            <!-- for 0.5 KG -->
+            <div *ngIf="this.logerInfo.isAdmin != 1" class="row">
+              <div class="col-md-3 pr-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Weight *:</label>
+                  <input type="text" disabled class="form-control" [value]="ShiperInfo.cityPricingInfo[0].weight">
+                </div>
+              </div>
+              <div class="col-md-3 pr-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Zone A *:</label>
+                  <input type="number" class="form-control"
+                    (input)="ShiperInfo.cityPricingInfo[0].zoneA = $event.target.value"
+                    [value]="ShiperInfo.cityPricingInfo[0].zoneA">
+                </div>
+              </div>
+              <div class="col-md-3 px-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Zone B *:</label>
+                  <input type="number" class="form-control"
+                    (input)="ShiperInfo.cityPricingInfo[0].zoneB = $event.target.value"
+                    [value]="ShiperInfo.cityPricingInfo[0].zoneB">
+                </div>
+              </div>
+              <div class="col-md-3 pl-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Zone C *:</label>
+                  <input type="number" class="form-control"
+                    (input)="ShiperInfo.cityPricingInfo[0].zoneC = $event.target.value"
+                    [value]="ShiperInfo.cityPricingInfo[0].zoneC">
+                </div>
+              </div>
+            </div>
+            <!-- for 0.5 KG -->
+
+            <!-- for 1 KG -->
+            <div *ngIf="this.logerInfo.isAdmin != 1" class="row">
+              <div class="col-md-3 pr-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Weight *:</label>
+                  <input type="text" disabled class="form-control" [value]="ShiperInfo.cityPricingInfo[1].weight">
+                </div>
+              </div>
+              <div class="col-md-3 pr-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Zone A *:</label>
+                  <input type="number" class="form-control"
+                    (input)="ShiperInfo.cityPricingInfo[1].zoneA = $event.target.value"
+                    [value]="ShiperInfo.cityPricingInfo[1].zoneA">
+                </div>
+              </div>
+              <div class="col-md-3 px-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Zone B *:</label>
+                  <input type="number" class="form-control"
+                    (input)="ShiperInfo.cityPricingInfo[1].zoneB = $event.target.value"
+                    [value]="ShiperInfo.cityPricingInfo[1].zoneB">
+                </div>
+              </div>
+              <div class="col-md-3 pl-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Zone C *:</label>
+                  <input type="number" class="form-control"
+                    (input)="ShiperInfo.cityPricingInfo[1].zoneC = $event.target.value"
+                    [value]="ShiperInfo.cityPricingInfo[1].zoneC">
+                </div>
+              </div>
+            </div>
+            <!-- for 1 KG -->
+
+            <!-- for +1 KG -->
+            <div *ngIf="this.logerInfo.isAdmin != 1" class="row">
+              <div class="col-md-3 pr-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Weight *:</label>
+                  <input type="text" disabled class="form-control" [value]="ShiperInfo.cityPricingInfo[2].weight">
+                </div>
+              </div>
+              <div class="col-md-3 pr-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Zone A *:</label>
+                  <input type="number" class="form-control"
+                    (input)="ShiperInfo.cityPricingInfo[2].zoneA = $event.target.value"
+                    [value]="ShiperInfo.cityPricingInfo[2].zoneA">
+                </div>
+              </div>
+              <div class="col-md-3 px-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Zone B *:</label>
+                  <input type="number" class="form-control"
+                    (input)="ShiperInfo.cityPricingInfo[2].zoneB = $event.target.value"
+                    [value]="ShiperInfo.cityPricingInfo[2].zoneB">
+                </div>
+              </div>
+              <div class="col-md-3 pl-1">
+                <div class="form-group">
+                  <label class="BoldLabel">Zone C *:</label>
+                  <input type="number" class="form-control"
+                    (input)="ShiperInfo.cityPricingInfo[2].zoneC = $event.target.value"
+                    [value]="ShiperInfo.cityPricingInfo[2].zoneC">
+                </div>
+              </div>
+            </div>
+            <!-- for +1 KG -->
+
+
+            <div class="row">
+              <div class="col-md-8">
+                <div class="form-group">
+                  <label class="BoldLabel">Billing Address*:</label>
+                  <input type="text" class="form-control" (input)="ShiperInfo.BillingAddress = $event.target.value"
+                    [value]="ShiperInfo.BillingAddress">
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label class="BoldLabel">GST Tax % :</label>
+                  <input type="text" class="form-control" (input)="ShiperInfo.GST = $event.target.value"
+                    [value]="ShiperInfo.GST">
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label class="BoldLabel">Fuel Tax % :</label>
+                  <input type="text" class="form-control" (input)="ShiperInfo.fuel = $event.target.value"
+                    [value]="ShiperInfo.fuel">
+                </div>
+              </div>
+            </div>
+
+
+
+            <div *ngIf="ShiperInfo.NICfrontLink != ''">
+              <img src="{{ShiperInfo.NICfrontLink}}" width="250px" height="150px" />
+            </div>
+
+            <div *ngIf="this.logerInfo.isAdmin != 1" class="row" style="margin-top: 10px; margin-left: 5px;">
+              <label style="margin-top : 5px" class="BoldLabel">CNIC Front Image:</label>
+              <div class="col-md-3 pr-1">
+                <input id="file" (change)="onFileChanged1($event)" type="file" accept="image/*" #file>
+              </div>
+            </div>
+            <br>
+            <div *ngIf="ShiperInfo.NICbackLink != ''">
+              <img src="{{ShiperInfo.NICbackLink}}" width="250px" height="150px" />
+            </div>
+
+            <div *ngIf="this.logerInfo.isAdmin != 1" class="row" style="margin-top: 10px; margin-left: 5px">
+              <label style="margin-top : 5px" class="BoldLabel">CNIC Back Image:</label>
+              <div class="col-md-3 pr-1">
+                <input id="file" (change)="onFileChanged2($event)" type="file" accept="image/*" #file>
+
+              </div>
+            </div>
+
+            <div *ngIf="this.logerInfo.isAdmin == 1" class="row">
+              <a
+                href="https://firebasestorage.googleapis.com/v0/b/remp-d2ca1.appspot.com/o/NewBulkUploadFile.xlsx?alt=media&amp;token=2e41c13c-c4d9-4ba8-8b9a-0e2f10c5af7b">
+                <h2 class="classH2">Bulk Import File Link</h2>
+              </a>
+            </div>
+
+
+            <!-- <div class="row" style="margin-top: 10px">
+              <div class="col-md-3 pr-1">
+                <input id="file" (change)="onFileChanged3($event)" type="file" accept="image/*" #file >
+              </div>
+            </div> -->
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
